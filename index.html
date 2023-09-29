@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Task</title>
+</head>
+<body>
+
+</body>
+<script>
+  window.addEventListener('load', () => {
+    const wrapper = document.createElement('div');
+    document.body.appendChild(wrapper);
+
+    for (i = 0; i < 100; i++) {
+      const div = document.createElement('div');
+      div.classList.add('innerElement');
+      div.style.display = 'flex';
+      div.style.justifyContent = 'center';
+      div.style.alignItems = 'center';
+      div.innerText = `div ${i}`;
+      div.style.fontSize = '22px';
+      div.style.fontWeight = 'bold';
+      div.style.width = '100%';
+      div.style.height = '100px';
+      div.style.boxSizing = 'border-box';
+      div.style.border = '5px solid gray';
+      div.style.marginBottom = '10px';
+      div.style.cursor = 'pointer';
+      div.addEventListener('mouseover', () => {
+        div.style.backgroundColor = '#f8f7f7';
+      })
+      div.addEventListener('mouseout', () => {
+        div.style.backgroundColor = '';
+      })
+  
+      wrapper.appendChild(div);
+    }
+
+    const divs = document.querySelectorAll('.innerElement');
+    
+    divs.forEach(div => {
+      div.addEventListener('click', (event) => {
+        const currentElement = event.currentTarget;
+        if(!currentElement.classList.contains("was-replaced")) {
+          currentElement.classList.add("was-replaced");
+          wrapper.insertBefore(currentElement, wrapper.children[0]);
+        } else {
+          currentElement.classList.remove('was-replaced')
+          index = currentElement.innerText.split(' ')[1];
+          wrapper.insertBefore(currentElement, wrapper.children[+index + 1]);
+        }
+      });
+    });
+  });
+</script>
+</html>
